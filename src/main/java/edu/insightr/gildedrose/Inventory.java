@@ -2,6 +2,13 @@ package edu.insightr.gildedrose;
 
 public class Inventory {
 
+    public static final String Vest = "+5 Dexterity Vest";
+    public static final String Brie  = "Aged Brie";
+    public static final String Sulfuras = "Sulfuras, Hand of Ragnaros";
+    public static final String ETC = "Backstage passes to a TAFKAL80ETC concert";
+    public  static final String Elixir = "Elixir of the Mongoose";
+    public static final String ManaBun = "Conjured Mana Cake";
+
     private Item[] items;
 
     public Inventory(Item[] items) {
