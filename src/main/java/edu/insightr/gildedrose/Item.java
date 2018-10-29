@@ -38,6 +38,11 @@ public class Item {
         this.quality = quality;
     }
 
+    public void accept(Visitor visitor)
+    {
+        visitor.updateQuality(this);
+    }
+
     @Override
     public String toString() {
         return "Item{" +
