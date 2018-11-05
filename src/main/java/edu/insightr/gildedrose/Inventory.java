@@ -29,6 +29,10 @@ public class Inventory {
 
     }
 
+    public Item[] getItems() {
+        return items;
+    }
+
     public void printInventory() {
         System.out.println("***************");
         for (Item item : items) {

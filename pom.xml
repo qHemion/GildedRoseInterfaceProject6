@@ -12,7 +12,7 @@
     <!--
     | Project Information
     -->
-    <name>HemionGildedRose</name>
+    <name>GildedRoseInterfaceProject6</name>
     <description>Gilded Rose Kata in Java</description>
     <packaging>jar</packaging>
 
@@ -27,10 +27,10 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <!--<version>2.3.1</version>-->
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
+                        <source>1.10</source>
+                        <target>1.10</target>
                     </configuration>
                 </plugin>
             </plugins>
@@ -38,9 +38,9 @@
     </build>
 
     <scm>
-        <connection>scm:git:https://github.com/qHemion/HemionGildedRose.git</connection>
-        <developerConnection>scm:git:https://github.com/qHemion/HemionGildedRose.git</developerConnection>
-        <url>https://github.com/qHemion/HemionGildedRose</url>
+        <connection>scm:git:https://github.com/qHemion/GildedRoseInterfaceProject6.git</connection>
+        <developerConnection>scm:git:https://github.com/qHemion/GildedRoseInterfaceProject6.git</developerConnection>
+        <url>https://github.com/qHemion/GildedRoseInterfaceProject6</url>
     </scm>
 
     <repositories/>
