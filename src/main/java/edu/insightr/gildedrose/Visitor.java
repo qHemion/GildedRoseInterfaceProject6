@@ -10,7 +10,7 @@ public class Visitor {
         if (!Brie.equals(myItem.getName())
                 && !ETC.equals( myItem.getName())){
             if (myItem.getQuality() > 0) {
-                if (Sulfuras.equals(myItem.getName())) {
+                if (!Sulfuras.equals(myItem.getName())) {
                     myItem.setQuality(myItem.getQuality() - 1);
                     if(ManaBun.equals(myItem.getName())) myItem.setQuality(myItem.getQuality() - 1);
                 }
@@ -37,7 +37,6 @@ public class Visitor {
 
         if (!Sulfuras.equals(myItem.getName())) {
             myItem.setSellIn(myItem.getSellIn() - 1);
-            if(ManaBun.equals(myItem.getName())) myItem.setQuality(myItem.getQuality() - 1);
         }
 
         if (myItem.getSellIn() < 0) {
