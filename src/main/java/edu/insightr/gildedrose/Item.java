@@ -67,7 +67,8 @@ public class Item {
         {
             updater = new UpdaterETC();
         }
-        return true;
+        else updater = new Updater();
+        return updater.Update(this);
     }
 
     @Override
