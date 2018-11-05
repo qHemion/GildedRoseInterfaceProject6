@@ -39,9 +39,8 @@ public class Inventory {
     }
 
     public void updateQuality() {
-        Visitor visitor = new Visitor();
         for (int i = 0; i < items.length; i++) {
-            items[i].accept(visitor);
+            items[i].update();
         }
     }
 

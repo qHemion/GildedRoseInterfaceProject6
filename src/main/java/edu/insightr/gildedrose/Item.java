@@ -38,9 +38,10 @@ public class Item {
         this.quality = quality;
     }
 
-    public boolean accept(Visitor visitor)
+    public boolean update()
     {
-        return visitor.updateQuality(this);
+        Updater Updater = new Updater();
+        return true;
     }
 
     @Override
