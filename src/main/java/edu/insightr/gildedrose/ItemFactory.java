@@ -8,22 +8,22 @@ public class ItemFactory {
     {
         Item newItem = null;
         if(Brie.equals(ItemType)){
-            newItem = new Item(Brie, 20, 20);
+            newItem = new Item(Brie, 2, 0);
         }
         if(Vest.equals(ItemType)){
-        newItem = new Item(Vest, 20, 20);
+        newItem = new Item(Vest, 10, 20);
         }
         if(Sulfuras.equals(ItemType)){
-        newItem = new Item(Sulfuras, 20, 20);
+        newItem = new Item(Sulfuras, 0, 80);
         }
         if(Elixir.equals(ItemType)){
-        newItem = new Item(Elixir, 20, 20);
+        newItem = new Item(Elixir, 5, 7);
         }
         if(ETC.equals(ItemType)){
-        newItem = new Item(ETC, 20, 20);
+        newItem = new Item(ETC, 15, 20);
         }
         if(ManaBun.equals(ItemType)){
-        newItem = new Item(ManaBun, 20, 20);
+        newItem = new Item(ManaBun, 3, 6);
         }
         return newItem;
     }

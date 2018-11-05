@@ -38,9 +38,9 @@ public class Item {
         this.quality = quality;
     }
 
-    public void accept(Visitor visitor)
+    public boolean accept(Visitor visitor)
     {
-        visitor.updateQuality(this);
+        return visitor.updateQuality(this);
     }
 
     @Override

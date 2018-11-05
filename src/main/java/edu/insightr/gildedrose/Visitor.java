@@ -1,26 +1,25 @@
 package edu.insightr.gildedrose;
 
-import static edu.insightr.gildedrose.Inventory.Brie;
-import static edu.insightr.gildedrose.Inventory.ETC;
-import static edu.insightr.gildedrose.Inventory.Sulfuras;
+import static edu.insightr.gildedrose.Inventory.*;
 
 public class Visitor {
 
 
 
-    void updateQuality(Item myItem){
-        if (myItem.getName() != Brie
-                && myItem.getName() != ETC) {
+    boolean updateQuality(Item myItem){
+        if (!Brie.equals(myItem.getName())
+                && !ETC.equals( myItem.getName())){
             if (myItem.getQuality() > 0) {
-                if (myItem.getName() != Sulfuras) {
+                if (Sulfuras.equals(myItem.getName())) {
                     myItem.setQuality(myItem.getQuality() - 1);
+                    if(ManaBun.equals(myItem.getName())) myItem.setQuality(myItem.getQuality() - 1);
                 }
             }
         } else {
             if (myItem.getQuality() < 50) {
                 myItem.setQuality(myItem.getQuality() + 1);
 
-                if (myItem.getName() == ETC) {
+                if (ETC.equals(myItem.getName())) {
                     if (myItem.getSellIn() < 11) {
                         if (myItem.getQuality() < 50) {
                             myItem.setQuality(myItem.getQuality() + 1);
@@ -36,16 +35,18 @@ public class Visitor {
             }
         }
 
-        if (myItem.getName() != Sulfuras) {
+        if (!Sulfuras.equals(myItem.getName())) {
             myItem.setSellIn(myItem.getSellIn() - 1);
+            if(ManaBun.equals(myItem.getName())) myItem.setQuality(myItem.getQuality() - 1);
         }
 
         if (myItem.getSellIn() < 0) {
-            if (myItem.getName() != Brie) {
-                if (myItem.getName() != ETC) {
+            if (!Brie.equals(myItem.getName())) {
+                if (!ETC.equals(myItem.getName())) {
                     if (myItem.getQuality() > 0) {
-                        if (myItem.getName() != Sulfuras) {
+                        if (Sulfuras.equals(myItem.getName())) {
                             myItem.setQuality(myItem.getQuality() - 1);
+                            if(ManaBun.equals(myItem.getName())) myItem.setQuality(myItem.getQuality() - 1);
                         }
                     }
                 } else {
@@ -57,5 +58,6 @@ public class Visitor {
                 }
             }
         }
+        return true;
     }
 }
