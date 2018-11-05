@@ -1,5 +1,7 @@
 package edu.insightr.gildedrose;
 
+import static edu.insightr.gildedrose.Inventory.*;
+
 public class Item {
 
     private String name;
@@ -40,7 +42,31 @@ public class Item {
 
     public boolean update()
     {
-        Updater Updater = new Updater();
+        Updater updater;
+        if(Brie.equals(this.getName()))
+        {
+            updater = new  UpdaterBrie();
+        }
+        else if(ManaBun.equals(this.getName()))
+        {
+            updater = new UpdaterManaBun();
+        }
+        else if(Vest.equals(this.getName()))
+        {
+            updater = new UpdaterVest();
+        }
+        else if(Sulfuras.equals(this.getName()))
+        {
+            updater = new UpdaterSulfuras();
+        }
+        else if(Elixir.equals(this.getName()))
+        {
+            updater = new UpdaterElixir();
+        }
+        else if(ETC.equals(this.getName()))
+        {
+            updater = new UpdaterETC();
+        }
         return true;
     }
 
