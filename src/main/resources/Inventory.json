@@ -1,0 +1,15 @@
+{
+  "inventory":[
+    {
+        "name" : "Sulfuras, Hand of Ragnaros",
+        "quality" : 40,
+        "sellIn" : 0
+
+    },
+    {
+        "name" : "Aged Brie",
+        "quality" : 20,
+        "sellIn" : 40
+    }
+  ]
+}
