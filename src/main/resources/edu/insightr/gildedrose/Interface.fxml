@@ -5,7 +5,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="484.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.gildedrose.Controller">
+<AnchorPane fx:id="Anchor" prefHeight="484.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.gildedrose.Controller">
    <children>
       <Button fx:id="UpdateQualityButton" layoutX="327.0" layoutY="86.0" mnemonicParsing="false" onAction="#UpdateInventory" prefHeight="25.0" prefWidth="104.0" text="Update Quality" />
       <ListView fx:id="list" layoutX="43.0" layoutY="84.0" prefHeight="319.0" prefWidth="246.0" />
@@ -16,6 +16,7 @@
       <Label fx:id="itemName" layoutX="417.0" layoutY="227.0" text="Item name here" />
       <Label fx:id="sellIn" layoutX="417.0" layoutY="266.0" text="0" />
       <Label fx:id="quality" layoutX="417.0" layoutY="301.0" text="0" />
-      <Button layoutX="44.0" layoutY="421.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="246.0" text="Validate selection" onAction="#UpdateSelection"/>
+      <Button layoutX="44.0" layoutY="421.0" mnemonicParsing="false" onAction="#UpdateSelection" prefHeight="25.0" prefWidth="246.0" text="Validate selection" />
+      <Button layoutX="320.0" layoutY="138.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Choose json file" onAction= "#ChooseFile"/>
    </children>
 </AnchorPane>

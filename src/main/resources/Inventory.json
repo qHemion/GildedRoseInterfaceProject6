@@ -10,6 +10,16 @@
         "name" : "Aged Brie",
         "quality" : 20,
         "sellIn" : 40
+    },
+    {
+      "name" : "Aged Brie",
+      "quality" : 20,
+      "sellIn" : 10
+    },
+    {
+      "name" : "Elixir of the Mongoose",
+      "quality" : 3,
+      "sellIn" : 7
     }
   ]
 }

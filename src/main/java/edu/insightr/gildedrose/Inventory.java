@@ -37,6 +37,12 @@ public class Inventory {
 
     }
 
+    public Inventory(File file) {
+        super();
+        JsonFileReader fileReader = new JsonFileReader();
+        items = fileReader.readInventory(file);
+    }
+
     public Item[] getItems() {
         return items;
     }
