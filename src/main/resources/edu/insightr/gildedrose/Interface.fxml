@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="Anchor" prefHeight="606.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.gildedrose.Controller">
+<AnchorPane fx:id="Anchor" prefHeight="802.0" prefWidth="1269.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.gildedrose.Controller">
    <children>
       <Button fx:id="UpdateQualityButton" layoutX="297.0" layoutY="84.0" mnemonicParsing="false" onAction="#UpdateInventory" prefHeight="25.0" prefWidth="156.0" text="Next Day" />
       <ListView fx:id="list" layoutX="43.0" layoutY="84.0" prefHeight="319.0" prefWidth="246.0" />
@@ -20,8 +23,24 @@
       <Button layoutX="44.0" layoutY="421.0" mnemonicParsing="false" onAction="#UpdateSelection" prefHeight="25.0" prefWidth="246.0" text="Validate selection" />
       <Button layoutX="299.0" layoutY="114.0" mnemonicParsing="false" onAction="#ChooseFile" prefHeight="25.0" prefWidth="156.0" text="New inventory (from json)" />
       <Button layoutX="297.0" layoutY="146.0" mnemonicParsing="false" onAction="#AddItem" prefHeight="25.0" prefWidth="156.0" text="Add items(Comming soonTM)" />
-      <PieChart fx:id="pie" layoutX="501.0" layoutY="35.0" prefHeight="309.0" prefWidth="456.0" />
+      <PieChart fx:id="pie" layoutX="563.0" layoutY="35.0" prefHeight="309.0" prefWidth="394.0" />
       <Label layoutX="290.0" layoutY="54.0" prefHeight="17.0" prefWidth="29.0" text="Day :" />
       <Label fx:id="day" layoutX="323.0" layoutY="54.0" text="CurrentDay" />
+      <BarChart fx:id="barSellIn" layoutX="299.0" layoutY="369.0" prefHeight="348.0" prefWidth="444.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </BarChart>
+      <BarChart fx:id="barDate" layoutX="758.0" layoutY="369.0" prefHeight="348.0" prefWidth="444.0">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </BarChart>
    </children>
 </AnchorPane>

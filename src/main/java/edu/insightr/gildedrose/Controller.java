@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -46,6 +47,12 @@ public class Controller {
 
     @FXML
     public ListView list;
+
+    @FXML
+    public BarChart barDate;
+
+    @FXML
+    public BarChart barSellIn;
 
 
     @FXML
