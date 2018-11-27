@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
@@ -64,6 +65,9 @@ public class Controller {
         pie.setLegendVisible(true);
         reBuildList();
         day.setText(String.valueOf(currentDay));
+        barDate.setLegendVisible(false);
+        barDate.setAnimated(false);
+
 
     }
 
@@ -119,6 +123,38 @@ public class Controller {
         }
         selectedItem = inventory.getItems().get(0);
         PieChartUpdate();
+        updateDateBarChart();
+    }
+
+    public void updateDateBarChart()
+    {
+        barDate.getData().clear();
+        XYChart.Series dataSeries1 = new XYChart.Series();
+        List<Integer> listDays = new ArrayList<Integer>();
+        List<Integer> listCount = new ArrayList<Integer>();
+
+        for(int i=0;i<inventory.getItems().size();i++){
+            if(!listDays.contains(inventory.getItems().get(i).getDateAdded()))
+            {
+                listDays.add(inventory.getItems().get(i).getDateAdded());
+                listCount.add(1);
+            }
+            else{
+                int index = listDays.indexOf(inventory.getItems().get(i).getDateAdded());
+                listCount.set(index, listCount.get(index)+1);
+            }
+        }
+
+        for (int i=0;i<listDays.size();i++){
+
+            dataSeries1.getData().add(new XYChart.Data("Day " + listDays.get(i), listCount.get(i)));
+            dataSeries1.setName("Arrival each day");
+        }
+
+        barDate.getData().add(dataSeries1);
+        barDate.setBarGap(0);
+
+
     }
 
     public void UpdateInventory(ActionEvent actionEvent) {

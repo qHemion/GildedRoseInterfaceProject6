@@ -36,10 +36,10 @@
       </BarChart>
       <BarChart fx:id="barDate" layoutX="758.0" layoutY="369.0" prefHeight="348.0" prefWidth="444.0">
          <xAxis>
-            <CategoryAxis side="BOTTOM" />
+            <CategoryAxis side="BOTTOM" label = "Day of arrival"/>
          </xAxis>
          <yAxis>
-            <NumberAxis side="LEFT" />
+            <NumberAxis side="LEFT" label = "# of items" />
          </yAxis>
       </BarChart>
    </children>
