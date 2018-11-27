@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="Anchor" prefHeight="484.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.gildedrose.Controller">
+<AnchorPane fx:id="Anchor" prefHeight="606.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.insightr.gildedrose.Controller">
    <children>
-      <Button fx:id="UpdateQualityButton" layoutX="327.0" layoutY="86.0" mnemonicParsing="false" onAction="#UpdateInventory" prefHeight="25.0" prefWidth="104.0" text="Update Quality" />
+      <Button fx:id="UpdateQualityButton" layoutX="297.0" layoutY="84.0" mnemonicParsing="false" onAction="#UpdateInventory" prefHeight="25.0" prefWidth="156.0" text="Next Day" />
       <ListView fx:id="list" layoutX="43.0" layoutY="84.0" prefHeight="319.0" prefWidth="246.0" />
-      <Label layoutX="330.0" layoutY="227.0" text="Item name" />
+      <Label layoutX="299.0" layoutY="189.0" text="Item name" />
       <Label layoutX="43.0" layoutY="54.0" text="Inventaire" />
-      <Label layoutX="330.0" layoutY="266.0" text="SellIn" />
-      <Label layoutX="330.0" layoutY="301.0" text="Quality" />
-      <Label fx:id="itemName" layoutX="417.0" layoutY="227.0" text="Item name here" />
-      <Label fx:id="sellIn" layoutX="417.0" layoutY="266.0" text="0" />
-      <Label fx:id="quality" layoutX="417.0" layoutY="301.0" text="0" />
+      <Label layoutX="299.0" layoutY="228.0" text="SellIn" />
+      <Label layoutX="299.0" layoutY="263.0" text="Quality" />
+      <Label fx:id="itemName" layoutX="386.0" layoutY="189.0" text="Item name here" />
+      <Label fx:id="sellIn" layoutX="386.0" layoutY="228.0" text="0" />
+      <Label fx:id="quality" layoutX="386.0" layoutY="263.0" text="0" />
       <Button layoutX="44.0" layoutY="421.0" mnemonicParsing="false" onAction="#UpdateSelection" prefHeight="25.0" prefWidth="246.0" text="Validate selection" />
-      <Button layoutX="320.0" layoutY="138.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Choose json file" onAction= "#ChooseFile"/>
+      <Button layoutX="299.0" layoutY="114.0" mnemonicParsing="false" onAction="#ChooseFile" prefHeight="25.0" prefWidth="156.0" text="New inventory (from json)" />
+      <Button layoutX="297.0" layoutY="146.0" mnemonicParsing="false" onAction="#AddItem" prefHeight="25.0" prefWidth="156.0" text="Add items(Comming soonTM)" />
+      <PieChart fx:id="pie" layoutX="494.0" layoutY="28.0" prefHeight="309.0" prefWidth="456.0" />
+      <Label layoutX="290.0" layoutY="54.0" prefHeight="17.0" prefWidth="29.0" text="Day :" />
+      <Label fx:id="day" layoutX="323.0" layoutY="54.0" text="CurrentDay" />
    </children>
 </AnchorPane>

@@ -15,7 +15,7 @@ public class InterfaceGildedRose extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Interface.fxml"));
         primaryStage.setTitle("Welcome to the Gilded Rose");
-        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.setScene(new Scene(root, 1400, 800));
         primaryStage.show();
     }
 
