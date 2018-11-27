@@ -2,6 +2,7 @@ package edu.insightr.gildedrose;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 
 public class Inventory {
 
@@ -12,9 +13,9 @@ public class Inventory {
     public  static final String Elixir = "Elixir of the Mongoose";
     public static final String ManaBun = "Conjured Mana Cake";
 
-    private Item[] items;
+    private List<Item> items;
 
-    public Inventory(Item[] items) {
+    public Inventory(List<Item> items) {
         super();
         this.items = items;
     }
@@ -43,7 +44,7 @@ public class Inventory {
         items = fileReader.readInventory(file);
     }
 
-    public Item[] getItems() {
+    public List<Item>  getItems() {
         return items;
     }
 
@@ -57,8 +58,8 @@ public class Inventory {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            items[i].update();
+        for (int i = 0; i < items.size(); i++) {
+            items.get(i).update();
         }
     }
 

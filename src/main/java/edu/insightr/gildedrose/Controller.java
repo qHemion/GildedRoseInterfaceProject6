@@ -23,7 +23,7 @@ public class Controller {
 
     Inventory inventory = new Inventory();
 
-    Item selectedItem = inventory.getItems()[0];
+    Item selectedItem = inventory.getItems().get(0);
 
     final FileChooser fileChooser = new FileChooser();
 
@@ -51,8 +51,8 @@ public class Controller {
     @FXML
     private void initialize()
     {
-        for(int i=0;i<inventory.getItems().length;i++){
-            list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems()[i].getName());
+        for(int i=0;i<inventory.getItems().size();i++){
+            list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
         }
         day.setText(String.valueOf(currentDay));
         pie.setTitle("Pie chart");
@@ -68,14 +68,14 @@ public class Controller {
         List<String> listElement = new ArrayList<String>();
         List<Integer> listCount = new ArrayList<Integer>();
 
-        for(int i=0;i<inventory.getItems().length;i++){
-            if(!listElement.contains(inventory.getItems()[i].getName()))
+        for(int i=0;i<inventory.getItems().size();i++){
+            if(!listElement.contains(inventory.getItems().get(i).getName()))
             {
-                listElement.add(inventory.getItems()[i].getName());
+                listElement.add(inventory.getItems().get(i).getName());
                 listCount.add(1);
             }
             else{
-                int index = listElement.indexOf(inventory.getItems()[i].getName());
+                int index = listElement.indexOf(inventory.getItems().get(i).getName());
                 listCount.set(index, listCount.get(index)+1);
             }
         }
@@ -87,10 +87,6 @@ public class Controller {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableList(listPie);
 
         pie.setData(pieChartData);
-        pie.setLabelsVisible(true);
-        pie.setLegendVisible(true);
-        pie.setLabelLineLength(10);
-        pie.setLegendSide(Side.LEFT);
     }
 
     private void UpdateSelectedItem()
@@ -105,7 +101,7 @@ public class Controller {
     {
         String selection = (String) list.getSelectionModel().getSelectedItem();
         int indiceItem = Integer.parseInt(selection.split(" ")[0]);
-        selectedItem = inventory.getItems()[indiceItem-1];
+        selectedItem = inventory.getItems().get(indiceItem-1);
         UpdateSelectedItem();
     }
 
@@ -124,10 +120,10 @@ public class Controller {
                 inventory = new Inventory(file);
 
                 list.getItems().clear();
-                for (int i = 0; i < inventory.getItems().length; i++) {
-                    list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems()[i].getName());
+                for (int i = 0; i < inventory.getItems().size(); i++) {
+                    list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
                 }
-                selectedItem = inventory.getItems()[0];
+                selectedItem = inventory.getItems().get(0);
                 PieChartUpdate();
             }
             catch (Exception e)

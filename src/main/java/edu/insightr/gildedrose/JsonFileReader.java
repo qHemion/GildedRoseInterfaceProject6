@@ -13,7 +13,7 @@ import org.json.simple.parser.JSONParser;
 public class JsonFileReader {
 
 
-    Item[] readInventory(File file)
+    List<Item> readInventory(File file)
     {
         List<Item> newItems = new ArrayList<Item>();
         JSONParser parser = new JSONParser();
@@ -40,6 +40,6 @@ public class JsonFileReader {
             e.printStackTrace();
         }
 
-        return newItems.toArray(new Item[0]);
+        return newItems;
     }
 }
