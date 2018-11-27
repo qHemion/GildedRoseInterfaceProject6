@@ -9,10 +9,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+
 
 import java.io.File;
 import java.util.*;
@@ -64,6 +66,7 @@ public class Controller {
         pie.setLegendVisible(true);
         reBuildList();
         day.setText(String.valueOf(currentDay));
+        barSellIn.setAnimated(false);
 
     }
 
@@ -92,6 +95,45 @@ public class Controller {
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableList(listPie);
 
         pie.setData(pieChartData);
+    }
+
+    private void BarSellInUpdate(){
+
+        barSellIn.getData().clear();
+        barSellIn.getXAxis().setLabel("Sell in Days");
+        barSellIn.getYAxis().setLabel("Number of items");
+        XYChart.Series series1 = new XYChart.Series();
+
+
+        List<Integer> listCount = new ArrayList<Integer>();
+
+        for(int i = 0;i < inventory.getItems().size(); i++){
+            listCount.add(inventory.getItems().get(i).getSellIn());
+        }
+
+
+
+        int value = 0;
+        int count = 0;
+        do{
+            for(int i = 0;i < listCount.size(); i++){
+                if(listCount.get(i) == value){
+                    count ++;
+                }
+            }
+            if(count > 0){
+                series1.getData().add(new XYChart.Data(value + "", count));
+                System.out.println("adding new chart " + count + " " + value);
+            }
+
+            value++;
+            count = 0;
+        }
+        while (value < 1100);
+
+
+        barSellIn.getData().addAll(series1);
+        barSellIn.setBarGap(0);
     }
 
     private void UpdateSelectedItem()
@@ -129,7 +171,7 @@ public class Controller {
         UpdateSelectedItem();
         currentDay++;
         day.setText(String.valueOf(currentDay));
-
+        BarSellInUpdate();
     }
 
     public void ChooseFile(ActionEvent actionEvent) {
