@@ -66,7 +66,9 @@ public class Controller {
         reBuildList();
         day.setText(String.valueOf(currentDay));
         barDate.setLegendVisible(false);
+        barSellIn.setLegendVisible(false);
         barDate.setAnimated(false);
+        barSellIn.setAnimated(false);
 
 
     }
@@ -124,6 +126,7 @@ public class Controller {
         selectedItem = inventory.getItems().get(0);
         PieChartUpdate();
         updateDateBarChart();
+        BarSellInUpdate();
     }
 
     public void updateDateBarChart()
@@ -157,12 +160,53 @@ public class Controller {
 
     }
 
+    private void BarSellInUpdate(){
+
+        barSellIn.getData().clear();
+        barSellIn.getXAxis().setLabel("Sell in Days");
+        barSellIn.getYAxis().setLabel("Number of items");
+        XYChart.Series series1 = new XYChart.Series();
+
+
+        List<Integer> listCount = new ArrayList<Integer>();
+
+        for(int i = 0;i < inventory.getItems().size(); i++){
+            listCount.add(inventory.getItems().get(i).getSellIn());
+        }
+
+
+
+        int value = 0;
+        int count = 0;
+        do{
+            for(int i = 0;i < listCount.size(); i++){
+                if(listCount.get(i) == value){
+                    count ++;
+                }
+            }
+            if(count > 0){
+                series1.getData().add(new XYChart.Data(value + "", count));
+                //System.out.println("adding new chart " + count + " " + value);
+            }
+
+            value++;
+            count = 0;
+        }
+        while (value < 1100);
+
+
+        barSellIn.getData().addAll(series1);
+        barSellIn.setBarGap(0);
+    }
+
+
     public void UpdateInventory(ActionEvent actionEvent) {
         if(inventory.updateQuality()) //Si il y a eut des changements
         {
             reBuildList();
         }
         UpdateSelectedItem();
+        BarSellInUpdate();
         currentDay++;
         day.setText(String.valueOf(currentDay));
 
