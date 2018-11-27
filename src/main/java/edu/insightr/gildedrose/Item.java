@@ -6,7 +6,7 @@ public class Item {
 
     private String name;
     private int sellIn;
-
+    private int dateAdded;
     private int quality;
 
     public Item(String name, int sellIn, int quality) {
@@ -14,6 +14,7 @@ public class Item {
         this.name = name;
         this.sellIn = sellIn;
         this.quality = quality;
+        this.dateAdded = 0;
     }
 
     public String getName() {
@@ -26,6 +27,12 @@ public class Item {
 
     public int getSellIn() {
         return sellIn;
+    }
+
+    public int getDateAdded() {return dateAdded;}
+
+    public void setDateAdded(int dateAdded) {
+        this.dateAdded = dateAdded;
     }
 
     public void setSellIn(int sellIn) {

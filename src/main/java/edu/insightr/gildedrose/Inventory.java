@@ -38,10 +38,22 @@ public class Inventory {
 
     }
 
-    public Inventory(File file) {
+    public Inventory(File file, int day) {
         super();
         JsonFileReader fileReader = new JsonFileReader();
         items = fileReader.readInventory(file);
+        for(int i=0; i<items.size(); i++)
+        {
+            items.get(i).setDateAdded(day);
+        }
+    }
+
+    public void fusion(Inventory I2)
+    {
+        for(int i=0; i<I2.getItems().size(); i++)
+        {
+            items.add(I2.getItems().get(i));
+        }
     }
 
     public List<Item>  getItems() {
@@ -57,10 +69,20 @@ public class Inventory {
         System.out.println("\n");
     }
 
-    public void updateQuality() {
+    public boolean updateQuality() {
+        boolean Changed = false;
         for (int i = 0; i < items.size(); i++) {
             items.get(i).update();
         }
+        for (int i = 0; i < items.size(); i++) {
+            if(items.get(i).getSellIn()<0)
+            {
+                items.remove(i);
+                i--;
+                Changed=true;
+            }
+        }
+        return Changed;
     }
 
     public static void main(String[] args) {

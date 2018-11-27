@@ -51,15 +51,13 @@ public class Controller {
     @FXML
     private void initialize()
     {
-        for(int i=0;i<inventory.getItems().size();i++){
-            list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
-        }
-        day.setText(String.valueOf(currentDay));
         pie.setTitle("Pie chart");
         pie.setLabelLineLength(10);
         pie.setLegendSide(Side.LEFT);
         pie.setLegendVisible(true);
-        PieChartUpdate();
+        reBuildList();
+        day.setText(String.valueOf(currentDay));
+
     }
 
     private void PieChartUpdate()
@@ -105,25 +103,34 @@ public class Controller {
         UpdateSelectedItem();
     }
 
+    private void reBuildList()
+    {
+        list.getItems().clear();
+        for(int i=0;i<inventory.getItems().size();i++){
+            list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
+
+        }
+        selectedItem = inventory.getItems().get(0);
+        PieChartUpdate();
+    }
+
     public void UpdateInventory(ActionEvent actionEvent) {
-        inventory.updateQuality();
+        if(inventory.updateQuality()) //Si il y a eut des changements
+        {
+            reBuildList();
+        }
         UpdateSelectedItem();
         currentDay++;
         day.setText(String.valueOf(currentDay));
-        PieChartUpdate();
+
     }
 
     public void ChooseFile(ActionEvent actionEvent) {
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
             try {
-                inventory = new Inventory(file);
-
-                list.getItems().clear();
-                for (int i = 0; i < inventory.getItems().size(); i++) {
-                    list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
-                }
-                selectedItem = inventory.getItems().get(0);
+                inventory = new Inventory(file, currentDay);
+                reBuildList();
                 PieChartUpdate();
             }
             catch (Exception e)
@@ -134,5 +141,17 @@ public class Controller {
     }
 
     public void AddItem(ActionEvent actionEvent) {
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            try {
+                inventory.fusion(new Inventory(file, currentDay));
+                reBuildList();
+                PieChartUpdate();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }
