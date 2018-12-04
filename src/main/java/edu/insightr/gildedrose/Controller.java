@@ -15,6 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
+
 import java.io.File;
 import java.util.*;
 
@@ -65,11 +66,7 @@ public class Controller {
         pie.setLegendVisible(true);
         reBuildList();
         day.setText(String.valueOf(currentDay));
-        barDate.setLegendVisible(false);
-        barSellIn.setLegendVisible(false);
-        barDate.setAnimated(false);
         barSellIn.setAnimated(false);
-
 
     }
 
@@ -100,66 +97,6 @@ public class Controller {
         pie.setData(pieChartData);
     }
 
-    private void UpdateSelectedItem()
-    {
-        itemName.setText(selectedItem.getName());
-        sellIn.setText(String.valueOf(selectedItem.getSellIn()));
-        quality.setText(String.valueOf(selectedItem.getQuality()));
-    }
-
-    @FXML
-    private void UpdateSelection()
-    {
-        String selection = (String) list.getSelectionModel().getSelectedItem();
-        int indiceItem = Integer.parseInt(selection.split(" ")[0]);
-        selectedItem = inventory.getItems().get(indiceItem-1);
-        UpdateSelectedItem();
-    }
-
-    private void reBuildList()
-    {
-        list.getItems().clear();
-        for(int i=0;i<inventory.getItems().size();i++){
-            list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
-
-        }
-        selectedItem = inventory.getItems().get(0);
-        PieChartUpdate();
-        updateDateBarChart();
-        BarSellInUpdate();
-    }
-
-    public void updateDateBarChart()
-    {
-        barDate.getData().clear();
-        XYChart.Series dataSeries1 = new XYChart.Series();
-        List<Integer> listDays = new ArrayList<Integer>();
-        List<Integer> listCount = new ArrayList<Integer>();
-
-        for(int i=0;i<inventory.getItems().size();i++){
-            if(!listDays.contains(inventory.getItems().get(i).getDateAdded()))
-            {
-                listDays.add(inventory.getItems().get(i).getDateAdded());
-                listCount.add(1);
-            }
-            else{
-                int index = listDays.indexOf(inventory.getItems().get(i).getDateAdded());
-                listCount.set(index, listCount.get(index)+1);
-            }
-        }
-
-        for (int i=0;i<listDays.size();i++){
-
-            dataSeries1.getData().add(new XYChart.Data("Day " + listDays.get(i), listCount.get(i)));
-            dataSeries1.setName("Arrival each day");
-        }
-
-        barDate.getData().add(dataSeries1);
-        barDate.setBarGap(0);
-
-
-    }
-
     private void BarSellInUpdate(){
 
         barSellIn.getData().clear();
@@ -186,7 +123,7 @@ public class Controller {
             }
             if(count > 0){
                 series1.getData().add(new XYChart.Data(value + "", count));
-                //System.out.println("adding new chart " + count + " " + value);
+                System.out.println("adding new chart " + count + " " + value);
             }
 
             value++;
@@ -199,6 +136,32 @@ public class Controller {
         barSellIn.setBarGap(0);
     }
 
+    private void UpdateSelectedItem()
+    {
+        itemName.setText(selectedItem.getName());
+        sellIn.setText(String.valueOf(selectedItem.getSellIn()));
+        quality.setText(String.valueOf(selectedItem.getQuality()));
+    }
+
+    @FXML
+    private void UpdateSelection()
+    {
+        String selection = (String) list.getSelectionModel().getSelectedItem();
+        int indiceItem = Integer.parseInt(selection.split(" ")[0]);
+        selectedItem = inventory.getItems().get(indiceItem-1);
+        UpdateSelectedItem();
+    }
+
+    private void reBuildList()
+    {
+        list.getItems().clear();
+        for(int i=0;i<inventory.getItems().size();i++){
+            list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
+
+        }
+        selectedItem = inventory.getItems().get(0);
+        PieChartUpdate();
+    }
 
     public void UpdateInventory(ActionEvent actionEvent) {
         if(inventory.updateQuality()) //Si il y a eut des changements
@@ -206,10 +169,9 @@ public class Controller {
             reBuildList();
         }
         UpdateSelectedItem();
-        BarSellInUpdate();
         currentDay++;
         day.setText(String.valueOf(currentDay));
-
+        BarSellInUpdate();
     }
 
     public void ChooseFile(ActionEvent actionEvent) {
