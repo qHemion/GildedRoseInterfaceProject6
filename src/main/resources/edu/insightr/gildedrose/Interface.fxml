@@ -54,5 +54,13 @@
       <Label fx:id="qualitySup" layoutX="868.0" layoutY="283.0" text="0" />
       <Button layoutX="979.0" layoutY="421.0" mnemonicParsing="false" onAction="#UpdateSelectionSup" prefHeight="25.0" prefWidth="246.0" text="Validate selection" />
       <Button layoutX="779.0" layoutY="127.0" mnemonicParsing="false" onAction="#ChooseFileSup" prefHeight="25.0" prefWidth="156.0" text="New inventory (from json)" />
+      <BarChart fx:id="barSold" layoutX="463.0" layoutY="72.0" prefHeight="283.0" prefWidth="267.0">
+         <xAxis>
+            <CategoryAxis label="Day" side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis label="# of items" side="LEFT" />
+         </yAxis>
+      </BarChart>
    </children>
 </AnchorPane>

@@ -16,6 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.*;
 
 import javafx.stage.FileChooser;
@@ -32,6 +34,9 @@ public class Controller {
     Item selectedItemSup = null;
 
     final FileChooser fileChooser = new FileChooser();
+
+    List<Transaction> transactions;
+
 
     int currentDay=0;
 
@@ -71,6 +76,9 @@ public class Controller {
     @FXML
     public BarChart barSellIn;
 
+    @FXML
+    public BarChart barSold;
+
 
     @FXML
     private void initialize()
@@ -86,11 +94,20 @@ public class Controller {
         day.setText(String.valueOf(currentDay));
         barDate.setLegendVisible(false);
         barSellIn.setLegendVisible(false);
+        barSold.setLegendVisible(true);
         barDate.setAnimated(false);
         barSellIn.setAnimated(false);
-
-
+        barSold.setAnimated(false);
+        transactions = new ArrayList<Transaction>();
     }
+
+    /*private void printLog(String S)
+    {
+        if(printer!=null)
+        {
+            printer.print(S);
+        }
+    }*/
 
     private void PieChartUpdate()
     {
@@ -187,7 +204,9 @@ public class Controller {
         if(selectedItemSup!=null)
         {
             inventory.getItems().add(new Item(selectedItemSup, currentDay));
+            transactions.add(new Transaction(currentDay, false));
             reBuildList();
+            updateSoldBarChart();
         }
     }
 
@@ -198,8 +217,10 @@ public class Controller {
         {
             inventory.getItems().remove(selectedItem);
             reBuildList();
+            transactions.add(new Transaction(currentDay, true));
             selectedItem=null;
             UpdateSelectedItem();
+            updateSoldBarChart();
         }
     }
 
@@ -273,6 +294,63 @@ public class Controller {
 
     }
 
+    public void updateSoldBarChart()
+    {
+        XYChart.Series Bought = new XYChart.Series();
+        XYChart.Series Sold = new XYChart.Series();
+        Bought.setName("# of items bought");
+        Sold.setName("# of items sold");
+        List<Integer> listDays = new ArrayList<Integer>();
+        List<Integer> listCountB = new ArrayList<Integer>();
+        List<Integer> listCountS = new ArrayList<Integer>();
+
+
+        if(transactions.size()!=0)
+        {
+            barSold.getData().clear();
+
+            for(int i=0;i<transactions.size();i++){
+                if(!listDays.contains(transactions.get(i).getDay()))
+                {
+                    listDays.add(transactions.get(i).getDay());
+                    if(transactions.get(i).isSold)
+                    {
+
+
+                        listCountS.add(1);
+                        listCountB.add(0);
+                    }else{
+                        listCountS.add(0);
+                        listCountB.add(1);
+                    }
+
+                }
+                else{
+                    int index = listDays.indexOf(transactions.get(i).getDay());
+
+                    if(transactions.get(i).isSold) listCountS.set(index, listCountS.get(index)+1);
+                    else listCountB.set(index, listCountB.get(index)+1);
+                }
+            }
+
+            for (int i=0;i<listDays.size();i++){
+
+                Bought.getData().add(new XYChart.Data("Day " + listDays.get(i), listCountB.get(i)));
+                Sold.getData().add(new XYChart.Data("Day " + listDays.get(i), listCountS.get(i)));
+
+            }
+
+
+            barSold.getData().add(Bought);
+            barSold.getData().add(Sold);
+            barSold.setBarGap(0);        }
+
+
+
+
+    }
+
+
     private void BarSellInUpdate(){
 
         barSellIn.getData().clear();
@@ -328,6 +406,21 @@ public class Controller {
         day.setText(String.valueOf(currentDay));
 
     }
+
+    /*public void ChooseFileLog(ActionEvent actionEvent) {
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            try {
+                fileWriter = new FileWriter(file, true);
+                printer = new PrintWriter(fileWriter);
+                printer.printf("%s" + "%n", "test");
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }*/
 
     public void ChooseFile(ActionEvent actionEvent) {
         File file = fileChooser.showOpenDialog(new Stage());
