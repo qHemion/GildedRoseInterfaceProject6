@@ -87,6 +87,39 @@ public class Item {
         return updater.Update(this);
     }
 
+    public int price(boolean fromProducer)
+    {
+        int priceMultiplier = 0;
+        if(Brie.equals(this.getName()))
+        {
+            priceMultiplier = 1;
+        }
+        else if(ManaBun.equals(this.getName()))
+        {
+            priceMultiplier = 1;
+        }
+        else if(Vest.equals(this.getName()))
+        {
+            priceMultiplier = 5;
+        }
+        else if(Sulfuras.equals(this.getName()))
+        {
+            priceMultiplier = 1000;
+        }
+        else if(Elixir.equals(this.getName()))
+        {
+            priceMultiplier = 8;
+        }
+        else if(ETC.equals(this.getName()))
+        {
+            priceMultiplier = 12;
+        }
+        int prix = priceMultiplier * quality;
+        if(fromProducer) prix = (prix * 4)/5;
+        return prix;
+    }
+
+
     @Override
     public String toString() {
         return "Item{" +

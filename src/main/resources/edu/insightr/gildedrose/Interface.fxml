@@ -17,7 +17,7 @@
       <Label layoutX="43.0" layoutY="54.0" text="Inventaire" />
       <Label layoutX="299.0" layoutY="261.0" text="SellIn" />
       <Label layoutX="299.0" layoutY="282.0" text="Quality" />
-      <Label fx:id="itemName" layoutX="375.0" layoutY="241.0" text="Item name here" />
+      <Label fx:id="itemName" layoutX="382.0" layoutY="241.0" text="Item name here" />
       <Label fx:id="sellIn" layoutX="386.0" layoutY="262.0" text="0" />
       <Label fx:id="quality" layoutX="386.0" layoutY="284.0" text="0" />
       <Button layoutX="44.0" layoutY="421.0" mnemonicParsing="false" onAction="#UpdateSelection" prefHeight="25.0" prefWidth="246.0" text="Validate selection" />
@@ -49,7 +49,7 @@
       <Label layoutX="777.0" layoutY="240.0" text="Item name" />
       <Label layoutX="781.0" layoutY="260.0" text="SellIn" />
       <Label layoutX="781.0" layoutY="281.0" text="Quality" />
-      <Label fx:id="itemNameSup" layoutX="857.0" layoutY="240.0" text="Item name here" />
+      <Label fx:id="itemNameSup" layoutX="862.0" layoutY="240.0" text="Item name here" />
       <Label fx:id="sellInSup" layoutX="868.0" layoutY="261.0" text="0" />
       <Label fx:id="qualitySup" layoutX="868.0" layoutY="283.0" text="0" />
       <Button layoutX="979.0" layoutY="421.0" mnemonicParsing="false" onAction="#UpdateSelectionSup" prefHeight="25.0" prefWidth="246.0" text="Validate selection" />
@@ -62,5 +62,11 @@
             <NumberAxis label="# of items" side="LEFT" />
          </yAxis>
       </BarChart>
+      <Label layoutX="298.0" layoutY="304.0" text="Price" />
+      <Label fx:id="price" layoutX="385.0" layoutY="306.0" text="0" />
+      <Label layoutX="782.0" layoutY="305.0" text="Price" />
+      <Label fx:id="priceSup" layoutX="868.0" layoutY="307.0" text="0" />
+      <Label layoutX="522.0" layoutY="355.0" text="Gilded Rose Budget" />
+      <Label fx:id="totalMoney" layoutX="654.0" layoutY="355.0" text="0" />
    </children>
 </AnchorPane>

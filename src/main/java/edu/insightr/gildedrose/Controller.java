@@ -37,6 +37,8 @@ public class Controller {
 
     List<Transaction> transactions;
 
+    int Funds;
+
 
     int currentDay=0;
 
@@ -54,6 +56,15 @@ public class Controller {
 
     @FXML
     public Label quality;
+
+    @FXML
+    public Label price;
+
+    @FXML
+    public Label priceSup;
+
+    @FXML
+    public Label totalMoney;
 
     @FXML
     public Label itemNameSup;
@@ -99,6 +110,8 @@ public class Controller {
         barSellIn.setAnimated(false);
         barSold.setAnimated(false);
         transactions = new ArrayList<Transaction>();
+        Funds = 1000; // A THOUSAND Gold ?!
+        totalMoney.setText(String.valueOf(Funds));
     }
 
     /*private void printLog(String S)
@@ -144,11 +157,14 @@ public class Controller {
             itemName.setText("no Item");
             sellIn.setText("no Item");
             quality.setText("no Item");
+            price.setText("no Item");
+
         }
         else{
             itemName.setText(selectedItem.getName());
             sellIn.setText(String.valueOf(selectedItem.getSellIn()));
             quality.setText(String.valueOf(selectedItem.getQuality()));
+            price.setText(String.valueOf(selectedItem.price(false)));
         }
 
     }
@@ -160,11 +176,14 @@ public class Controller {
             itemNameSup.setText("no Item");
             sellInSup.setText("no Item");
             qualitySup.setText("no Item");
+            priceSup.setText("no Item");
+
         }
         else{
             itemNameSup.setText(selectedItemSup.getName());
             sellInSup.setText(String.valueOf(selectedItemSup.getSellIn()));
             qualitySup.setText(String.valueOf(selectedItemSup.getQuality()));
+            priceSup.setText(String.valueOf(selectedItemSup.price(true)));
         }
 
     }
@@ -198,15 +217,26 @@ public class Controller {
         UpdateSelectedItemSup();
     }
 
+    private void doTransaction(boolean isSold)
+    {
+        transactions.add(new Transaction(currentDay, isSold));
+        if(isSold)
+        Funds+=selectedItem.price(!isSold);
+        else Funds-=selectedItemSup.price(isSold);
+        totalMoney.setText(String.valueOf(Funds));
+    }
+
     @FXML
     private void BuySelection()
     {
         if(selectedItemSup!=null)
         {
-            inventory.getItems().add(new Item(selectedItemSup, currentDay));
-            transactions.add(new Transaction(currentDay, false));
-            reBuildList();
-            updateSoldBarChart();
+            if(Funds>=selectedItemSup.price(true)) {
+                doTransaction(false);
+                inventory.getItems().add(new Item(selectedItemSup, currentDay));
+                reBuildList();
+                updateSoldBarChart();
+            }
         }
     }
 
@@ -215,9 +245,9 @@ public class Controller {
     {
         if(selectedItem!=null)
         {
+            doTransaction(true);
             inventory.getItems().remove(selectedItem);
             reBuildList();
-            transactions.add(new Transaction(currentDay, true));
             selectedItem=null;
             UpdateSelectedItem();
             updateSoldBarChart();
