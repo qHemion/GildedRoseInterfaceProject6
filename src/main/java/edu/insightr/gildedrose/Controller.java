@@ -25,7 +25,11 @@ public class Controller {
 
     Inventory inventory = new Inventory();
 
-    Item selectedItem = inventory.getItems().get(0);
+    Inventory inventorySup = new Inventory();
+
+    Item selectedItem = null;
+
+    Item selectedItemSup = null;
 
     final FileChooser fileChooser = new FileChooser();
 
@@ -47,7 +51,19 @@ public class Controller {
     public Label quality;
 
     @FXML
+    public Label itemNameSup;
+
+    @FXML
+    public Label sellInSup;
+
+    @FXML
+    public Label qualitySup;
+
+    @FXML
     public ListView list;
+
+    @FXML
+    public ListView listSup;
 
     @FXML
     public BarChart barDate;
@@ -63,7 +79,10 @@ public class Controller {
         pie.setLabelLineLength(10);
         pie.setLegendSide(Side.LEFT);
         pie.setLegendVisible(true);
+        UpdateSelectedItem();
+        UpdateSelectedItemSup();
         reBuildList();
+        reBuildListSup();
         day.setText(String.valueOf(currentDay));
         barDate.setLegendVisible(false);
         barSellIn.setLegendVisible(false);
@@ -79,83 +98,177 @@ public class Controller {
         List<String> listElement = new ArrayList<String>();
         List<Integer> listCount = new ArrayList<Integer>();
 
-        for(int i=0;i<inventory.getItems().size();i++){
-            if(!listElement.contains(inventory.getItems().get(i).getName()))
-            {
-                listElement.add(inventory.getItems().get(i).getName());
-                listCount.add(1);
+        if(inventory.getItems().size()!=0) {
+
+            for (int i = 0; i < inventory.getItems().size(); i++) {
+                if (!listElement.contains(inventory.getItems().get(i).getName())) {
+                    listElement.add(inventory.getItems().get(i).getName());
+                    listCount.add(1);
+                } else {
+                    int index = listElement.indexOf(inventory.getItems().get(i).getName());
+                    listCount.set(index, listCount.get(index) + 1);
+                }
             }
-            else{
-                int index = listElement.indexOf(inventory.getItems().get(i).getName());
-                listCount.set(index, listCount.get(index)+1);
+
+            for (int i = 0; i < listElement.size(); i++) {
+                listPie.add(new PieChart.Data(listElement.get(i), listCount.get(i)));
             }
+
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableList(listPie);
+
+            pie.setData(pieChartData);
         }
-
-        for (int i=0;i<listElement.size();i++){
-            listPie.add(new PieChart.Data(listElement.get(i), listCount.get(i)));
-        }
-
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableList(listPie);
-
-        pie.setData(pieChartData);
     }
 
     private void UpdateSelectedItem()
     {
-        itemName.setText(selectedItem.getName());
-        sellIn.setText(String.valueOf(selectedItem.getSellIn()));
-        quality.setText(String.valueOf(selectedItem.getQuality()));
+        if(selectedItem==null)
+        {
+            itemName.setText("no Item");
+            sellIn.setText("no Item");
+            quality.setText("no Item");
+        }
+        else{
+            itemName.setText(selectedItem.getName());
+            sellIn.setText(String.valueOf(selectedItem.getSellIn()));
+            quality.setText(String.valueOf(selectedItem.getQuality()));
+        }
+
+    }
+
+    private void UpdateSelectedItemSup()
+    {
+        if(selectedItemSup==null)
+        {
+            itemNameSup.setText("no Item");
+            sellInSup.setText("no Item");
+            qualitySup.setText("no Item");
+        }
+        else{
+            itemNameSup.setText(selectedItemSup.getName());
+            sellInSup.setText(String.valueOf(selectedItemSup.getSellIn()));
+            qualitySup.setText(String.valueOf(selectedItemSup.getQuality()));
+        }
+
     }
 
     @FXML
     private void UpdateSelection()
     {
-        String selection = (String) list.getSelectionModel().getSelectedItem();
-        int indiceItem = Integer.parseInt(selection.split(" ")[0]);
-        selectedItem = inventory.getItems().get(indiceItem-1);
+        if(list.getSelectionModel().getSelectedItem()!=null)
+        {
+            String selection = (String) list.getSelectionModel().getSelectedItem();
+            int indiceItem = Integer.parseInt(selection.split(" ")[0]);
+            selectedItem = inventory.getItems().get(indiceItem-1);
+
+        }else selectedItem= null;
+
         UpdateSelectedItem();
+
     }
+
+
+    @FXML
+    private void UpdateSelectionSup()
+    {
+        if(listSup.getSelectionModel().getSelectedItem()!=null) {
+            String selection = (String) listSup.getSelectionModel().getSelectedItem();
+            int indiceItem = Integer.parseInt(selection.split(" ")[0]);
+            selectedItemSup = inventorySup.getItems().get(indiceItem - 1);
+
+        }else selectedItemSup= null;
+
+        UpdateSelectedItemSup();
+    }
+
+    @FXML
+    private void BuySelection()
+    {
+        if(selectedItemSup!=null)
+        {
+            inventory.getItems().add(new Item(selectedItemSup, currentDay));
+            reBuildList();
+        }
+    }
+
+    @FXML
+    private void SellSelection()
+    {
+        if(selectedItem!=null)
+        {
+            inventory.getItems().remove(selectedItem);
+            reBuildList();
+            selectedItem=null;
+            UpdateSelectedItem();
+        }
+    }
+
 
     private void reBuildList()
     {
         list.getItems().clear();
-        for(int i=0;i<inventory.getItems().size();i++){
-            list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
+        if(inventory.getItems().size()>0)
+        {
 
+            for(int i=0;i<inventory.getItems().size();i++){
+                list.getItems().add(String.valueOf(i + 1) + " " + inventory.getItems().get(i).getName());
+
+            }
+            if(inventory.getItems().size()>=0) selectedItem = inventory.getItems().get(0);
+            else selectedItem = null;
+            PieChartUpdate();
+            updateDateBarChart();
+            BarSellInUpdate();
         }
-        selectedItem = inventory.getItems().get(0);
-        PieChartUpdate();
-        updateDateBarChart();
-        BarSellInUpdate();
+        else selectedItem = null;
+
+    }
+
+    private void reBuildListSup()
+    {
+        listSup.getItems().clear();
+        if(inventory.getItems().size()>0) {
+
+            for (int i = 0; i < inventorySup.getItems().size(); i++) {
+                listSup.getItems().add(String.valueOf(i + 1) + " " + inventorySup.getItems().get(i).getName());
+
+            }
+            if (inventorySup.getItems().size() >= 0) selectedItemSup = inventorySup.getItems().get(0);
+            else selectedItemSup = null;
+        }
     }
 
     public void updateDateBarChart()
     {
-        barDate.getData().clear();
         XYChart.Series dataSeries1 = new XYChart.Series();
         List<Integer> listDays = new ArrayList<Integer>();
         List<Integer> listCount = new ArrayList<Integer>();
 
-        for(int i=0;i<inventory.getItems().size();i++){
-            if(!listDays.contains(inventory.getItems().get(i).getDateAdded()))
-            {
-                listDays.add(inventory.getItems().get(i).getDateAdded());
-                listCount.add(1);
+        if(inventory.getItems().size()!=0)
+        {
+            barDate.getData().clear();
+            for(int i=0;i<inventory.getItems().size();i++){
+                if(!listDays.contains(inventory.getItems().get(i).getDateAdded()))
+                {
+                    listDays.add(inventory.getItems().get(i).getDateAdded());
+                    listCount.add(1);
+                }
+                else{
+                    int index = listDays.indexOf(inventory.getItems().get(i).getDateAdded());
+                    listCount.set(index, listCount.get(index)+1);
+                }
             }
-            else{
-                int index = listDays.indexOf(inventory.getItems().get(i).getDateAdded());
-                listCount.set(index, listCount.get(index)+1);
+
+            for (int i=0;i<listDays.size();i++){
+
+                dataSeries1.getData().add(new XYChart.Data("Day " + listDays.get(i), listCount.get(i)));
+                dataSeries1.setName("Arrival each day");
             }
-        }
 
-        for (int i=0;i<listDays.size();i++){
+            barDate.getData().add(dataSeries1);
+            barDate.setBarGap(0);        }
 
-            dataSeries1.getData().add(new XYChart.Data("Day " + listDays.get(i), listCount.get(i)));
-            dataSeries1.setName("Arrival each day");
-        }
 
-        barDate.getData().add(dataSeries1);
-        barDate.setBarGap(0);
 
 
     }
@@ -167,36 +280,40 @@ public class Controller {
         barSellIn.getYAxis().setLabel("Number of items");
         XYChart.Series series1 = new XYChart.Series();
 
+        if(inventory.getItems().size()!=0) {
 
-        List<Integer> listCount = new ArrayList<Integer>();
-
-        for(int i = 0;i < inventory.getItems().size(); i++){
-            listCount.add(inventory.getItems().get(i).getSellIn());
-        }
+            barSellIn.getData().clear();
 
 
 
-        int value = 0;
-        int count = 0;
-        do{
-            for(int i = 0;i < listCount.size(); i++){
-                if(listCount.get(i) == value){
-                    count ++;
+            List<Integer> listCount = new ArrayList<Integer>();
+
+                for (int i = 0; i < inventory.getItems().size(); i++) {
+                    listCount.add(inventory.getItems().get(i).getSellIn());
                 }
-            }
-            if(count > 0){
-                series1.getData().add(new XYChart.Data(value + "", count));
-                //System.out.println("adding new chart " + count + " " + value);
-            }
 
-            value++;
-            count = 0;
+
+                int value = 0;
+                int count = 0;
+                do {
+                    for (int i = 0; i < listCount.size(); i++) {
+                        if (listCount.get(i) == value) {
+                            count++;
+                        }
+                    }
+                    if (count > 0) {
+                        series1.getData().add(new XYChart.Data(value + "", count));
+                        //System.out.println("adding new chart " + count + " " + value);
+                    }
+
+                    value++;
+                    count = 0;
+                } while (value < 1100);
+
+
+                barSellIn.getData().addAll(series1);
+                barSellIn.setBarGap(0);
         }
-        while (value < 1100);
-
-
-        barSellIn.getData().addAll(series1);
-        barSellIn.setBarGap(0);
     }
 
 
@@ -218,6 +335,21 @@ public class Controller {
             try {
                 inventory = new Inventory(file, currentDay);
                 reBuildList();
+                PieChartUpdate();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void ChooseFileSup(ActionEvent actionEvent) {
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            try {
+                inventorySup = new Inventory(file, currentDay);
+                reBuildListSup();
                 PieChartUpdate();
             }
             catch (Exception e)

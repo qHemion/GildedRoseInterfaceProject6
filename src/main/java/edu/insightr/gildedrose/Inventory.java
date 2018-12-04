@@ -2,6 +2,7 @@ package edu.insightr.gildedrose;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory {
@@ -22,10 +23,11 @@ public class Inventory {
 
     public Inventory() {
         super();
-        JsonFileReader fileReader = new JsonFileReader();
+        /*JsonFileReader fileReader = new JsonFileReader();
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("Inventory.json").getFile());
-        items = fileReader.readInventory(file);
+        items = fileReader.readInventory(file);*/
+        items = new ArrayList<Item>();
         /*items = new Item[]{
                 new Item("+5 Dexterity Vest", 10, 20),
                 new Item("Aged Brie", 2, 0),

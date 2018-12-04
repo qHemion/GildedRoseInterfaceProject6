@@ -17,6 +17,15 @@ public class Item {
         this.dateAdded = 0;
     }
 
+    public Item(Item I, int dayOfCopy)
+    {
+        super();
+        this.name = I.name;
+        this.sellIn = I.sellIn;
+        this.quality = I.quality;
+        this.dateAdded = dayOfCopy;
+    }
+
     public String getName() {
         return name;
     }
