@@ -227,7 +227,7 @@ public class Controller {
     private void reBuildListSup()
     {
         listSup.getItems().clear();
-        if(inventory.getItems().size()>0) {
+        if(inventorySup.getItems().size()>0) {
 
             for (int i = 0; i < inventorySup.getItems().size(); i++) {
                 listSup.getItems().add(String.valueOf(i + 1) + " " + inventorySup.getItems().get(i).getName());
