@@ -152,7 +152,7 @@ public class Controller {
 
     private void UpdateSelectedItem()
     {
-        if(selectedItem==null)
+        /*if(selectedItem==null)
         {
             itemName.setText("no Item");
             sellIn.setText("no Item");
@@ -165,13 +165,14 @@ public class Controller {
             sellIn.setText(String.valueOf(selectedItem.getSellIn()));
             quality.setText(String.valueOf(selectedItem.getQuality()));
             price.setText(String.valueOf(selectedItem.price(false)));
-        }
+        }*/
+        updateSelected(itemName, sellIn, quality, price, selectedItem, false);
 
     }
 
     private void UpdateSelectedItemSup()
     {
-        if(selectedItemSup==null)
+        /*if(selectedItemSup==null)
         {
             itemNameSup.setText("no Item");
             sellInSup.setText("no Item");
@@ -184,14 +185,35 @@ public class Controller {
             sellInSup.setText(String.valueOf(selectedItemSup.getSellIn()));
             qualitySup.setText(String.valueOf(selectedItemSup.getQuality()));
             priceSup.setText(String.valueOf(selectedItemSup.price(true)));
-        }
+        }*/
+
+        updateSelected(itemNameSup, sellInSup, qualitySup, priceSup, selectedItemSup, true);
 
     }
+
+    private void updateSelected(Label Name, Label SellIn, Label Quality, Label Price, Item Selected, boolean FromProducer)
+    {
+        if(Selected==null)
+        {
+            Name.setText("no Item");
+            SellIn.setText("no Item");
+            Quality.setText("no Item");
+            Price.setText("no Item");
+
+        }
+        else{
+            Name.setText(Selected.getName());
+            SellIn.setText(String.valueOf(Selected.getSellIn()));
+            Quality.setText(String.valueOf(Selected.getQuality()));
+            Price.setText(String.valueOf(Selected.price(FromProducer)));
+        }
+    }
+
 
     @FXML
     private void UpdateSelection()
     {
-        if(list.getSelectionModel().getSelectedItem()!=null)
+        /*if(list.getSelectionModel().getSelectedItem()!=null)
         {
             String selection = (String) list.getSelectionModel().getSelectedItem();
             int indiceItem = Integer.parseInt(selection.split(" ")[0]);
@@ -199,7 +221,8 @@ public class Controller {
 
         }else selectedItem= null;
 
-        UpdateSelectedItem();
+        UpdateSelectedItem();*/
+        updateSelection(list, inventory, false);
 
     }
 
@@ -207,14 +230,42 @@ public class Controller {
     @FXML
     private void UpdateSelectionSup()
     {
-        if(listSup.getSelectionModel().getSelectedItem()!=null) {
+        /*if(listSup.getSelectionModel().getSelectedItem()!=null) {
             String selection = (String) listSup.getSelectionModel().getSelectedItem();
             int indiceItem = Integer.parseInt(selection.split(" ")[0]);
             selectedItemSup = inventorySup.getItems().get(indiceItem - 1);
 
         }else selectedItemSup= null;
 
-        UpdateSelectedItemSup();
+        UpdateSelectedItemSup();*/
+        updateSelection(listSup, inventorySup, true);
+    }
+
+    private void updateSelection(ListView List,  Inventory Inventory, boolean FromSupplier)
+    {
+
+        if(List.getSelectionModel().getSelectedItem()!=null) {
+            String selection = (String) List.getSelectionModel().getSelectedItem();
+            int indiceItem = Integer.parseInt(selection.split(" ")[0]);
+            if(FromSupplier)
+            {
+                selectedItemSup = Inventory.getItems().get(indiceItem - 1);
+            }else{
+                selectedItem = Inventory.getItems().get(indiceItem - 1);
+            }
+
+
+        }else
+        {
+            if(FromSupplier)
+            {
+                selectedItemSup = null;
+            }else{
+                selectedItem = null;
+            }
+        }
+
+        if(FromSupplier) UpdateSelectedItemSup(); else UpdateSelectedItem();
     }
 
     private void doTransaction(boolean isSold)
@@ -453,7 +504,7 @@ public class Controller {
     }*/
 
     public void ChooseFile(ActionEvent actionEvent) {
-        File file = fileChooser.showOpenDialog(new Stage());
+        /*File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
             try {
                 inventory = new Inventory(file, currentDay);
@@ -464,15 +515,42 @@ public class Controller {
             {
                 e.printStackTrace();
             }
-        }
+        }*/
+        chooseFile(false);
     }
 
     public void ChooseFileSup(ActionEvent actionEvent) {
-        File file = fileChooser.showOpenDialog(new Stage());
+        /*File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
             try {
                 inventorySup = new Inventory(file, currentDay);
                 reBuildListSup();
+                PieChartUpdate();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }*/
+        chooseFile(true);
+    }
+
+    public void chooseFile(boolean FromSupplier)
+    {
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            try {
+                if(FromSupplier)
+                {
+                    inventorySup = new Inventory(file, currentDay);
+                    reBuildListSup();
+                }
+                else {
+                    inventory = new Inventory(file, currentDay);
+                    reBuildList();
+                    PieChartUpdate();
+                }
+
                 PieChartUpdate();
             }
             catch (Exception e)
