@@ -112,6 +112,7 @@ public class Controller {
         transactions = new ArrayList<Transaction>();
         Funds = 1000; // A THOUSAND Gold ?!
         totalMoney.setText(String.valueOf(Funds));
+        WriteFile.ClearFile();
     }
 
     /*private void printLog(String S)
@@ -285,6 +286,7 @@ public class Controller {
             if(Funds>=selectedItemSup.price(true)) {
                 doTransaction(false);
                 inventory.getItems().add(new Item(selectedItemSup, currentDay));
+                WriteFile.WriteToFile(currentDay + " : BOUGHT :" + selectedItemSup.getName());
                 reBuildList();
                 updateSoldBarChart();
             }
@@ -298,6 +300,7 @@ public class Controller {
         {
             doTransaction(true);
             inventory.getItems().remove(selectedItem);
+            WriteFile.WriteToFile(currentDay + " : SOLD :" + selectedItem.getName());
             reBuildList();
             selectedItem=null;
             UpdateSelectedItem();
@@ -477,9 +480,14 @@ public class Controller {
 
 
     public void UpdateInventory(ActionEvent actionEvent) {
-        if(inventory.updateQuality()) //Si il y a eut des changements
+        ArrayList<Item> removedItems = inventory.updateQuality();
+        if(removedItems.size() > 0) //Si il y a eut des changements
         {
             reBuildList();
+            for(int i = 0; i < removedItems.size(); i++){
+                WriteFile.WriteToFile(currentDay + " : AUTO REMOVED : " + removedItems.get(i).getName());
+            }
+
         }
         UpdateSelectedItem();
         BarSellInUpdate();
