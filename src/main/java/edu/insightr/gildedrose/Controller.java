@@ -31,8 +31,6 @@ public class Controller {
 
     Item selectedItemSup = null;
 
-     WriteFile logs;
-
     final FileChooser fileChooser = new FileChooser();
 
     int currentDay=0;
@@ -90,7 +88,7 @@ public class Controller {
         barSellIn.setLegendVisible(false);
         barDate.setAnimated(false);
         barSellIn.setAnimated(false);
-        logs = new WriteFile("logs");
+       WriteFile.ClearFile();
 
     }
 
@@ -200,7 +198,7 @@ public class Controller {
     {
         if(selectedItem!=null)
         {
-            logs.WriteToFile(currentDay + " : SOLD :" + selectedItem.getName());
+            WriteFile.WriteToFile(currentDay + " : SOLD :" + selectedItem.getName());
             inventory.getItems().remove(selectedItem);
             reBuildList();
             selectedItem=null;
@@ -323,14 +321,19 @@ public class Controller {
 
 
     public void UpdateInventory(ActionEvent actionEvent) {
-        if(inventory.updateQuality()) //Si il y a eut des changements
+        ArrayList<Item> removedItems = inventory.updateQuality();
+        if(removedItems.size() > 0) //Si il y a eut des changements
         {
             reBuildList();
+            for(int i = 0; i < removedItems.size(); i++){
+                WriteFile.WriteToFile(currentDay + " : AUTO REMOVED : " + removedItems.get(i).getName());
+            }
+
         }
         UpdateSelectedItem();
 
         // A refaire avec le nom des items vendus -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        logs.WriteToFile(currentDay + " : AUTO REMOVED : ");
+
 
         BarSellInUpdate();
         currentDay++;

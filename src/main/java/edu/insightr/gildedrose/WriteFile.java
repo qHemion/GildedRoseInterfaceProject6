@@ -6,18 +6,25 @@ import java.io.IOException;
 
 public class WriteFile {
 
-    private static String path = "logs";
+    private static String path = "logs.txt";
 
-    public WriteFile(String path)
-    {
-        this.path = path;
+    public static void ClearFile(){
+        FileWriter write = null;
+        try{
+            write =  new FileWriter(path, false);
+            write.write("");
+            write.close();
+        }
+        catch (IOException ex){
+
+        }
     }
 
     static public void WriteToFile(String content){
         FileWriter write = null;
         try{
             write =  new FileWriter(path, true);
-            write.write(content);
+            write.write(content +"\n");
             write.close();
         }
         catch (IOException ex){

@@ -71,20 +71,21 @@ public class Inventory {
         System.out.println("\n");
     }
 
-    public boolean updateQuality() {
-        boolean Changed = false;
+    public ArrayList<Item> updateQuality() {
+        ArrayList<Item> itemRemoved = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             items.get(i).update();
         }
         for (int i = 0; i < items.size(); i++) {
             if(items.get(i).getSellIn()<0)
             {
+                itemRemoved.add(items.get(i));
                 items.remove(i);
                 i--;
-                Changed=true;
+
             }
         }
-        return Changed;
+        return itemRemoved;
     }
 
     public static void main(String[] args) {
