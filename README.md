@@ -53,5 +53,6 @@ Quality is 80 and it never alters.
 # Team
 Quentin Hemion
 Clement Langlois
+Séthi MANIP
 Louis Gaillet
 Valentin Buisson
