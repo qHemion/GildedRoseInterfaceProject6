@@ -13,20 +13,20 @@
    <children>
       <Button fx:id="UpdateQualityButton" layoutX="297.0" layoutY="84.0" mnemonicParsing="false" onAction="#UpdateInventory" prefHeight="25.0" prefWidth="156.0" text="Next Day" />
       <ListView fx:id="list" layoutX="43.0" layoutY="84.0" prefHeight="319.0" prefWidth="246.0" />
-      <Label layoutX="299.0" layoutY="189.0" text="Item name" />
+      <Label layoutX="295.0" layoutY="241.0" text="Item name" />
       <Label layoutX="43.0" layoutY="54.0" text="Inventaire" />
-      <Label layoutX="299.0" layoutY="228.0" text="SellIn" />
-      <Label layoutX="299.0" layoutY="263.0" text="Quality" />
-      <Label fx:id="itemName" layoutX="386.0" layoutY="189.0" text="Item name here" />
-      <Label fx:id="sellIn" layoutX="386.0" layoutY="228.0" text="0" />
-      <Label fx:id="quality" layoutX="386.0" layoutY="263.0" text="0" />
+      <Label layoutX="299.0" layoutY="261.0" text="SellIn" />
+      <Label layoutX="299.0" layoutY="282.0" text="Quality" />
+      <Label fx:id="itemName" layoutX="375.0" layoutY="241.0" text="Item name here" />
+      <Label fx:id="sellIn" layoutX="386.0" layoutY="262.0" text="0" />
+      <Label fx:id="quality" layoutX="386.0" layoutY="284.0" text="0" />
       <Button layoutX="44.0" layoutY="421.0" mnemonicParsing="false" onAction="#UpdateSelection" prefHeight="25.0" prefWidth="246.0" text="Validate selection" />
       <Button layoutX="299.0" layoutY="114.0" mnemonicParsing="false" onAction="#ChooseFile" prefHeight="25.0" prefWidth="156.0" text="New inventory (from json)" />
       <Button layoutX="297.0" layoutY="146.0" mnemonicParsing="false" onAction="#AddItem" prefHeight="25.0" prefWidth="156.0" text="Add items(Comming soonTM)" />
-      <PieChart fx:id="pie" layoutX="563.0" layoutY="35.0" prefHeight="309.0" prefWidth="394.0" />
+      <PieChart fx:id="pie" layoutX="813.0" layoutY="446.0" prefHeight="309.0" prefWidth="394.0" />
       <Label layoutX="290.0" layoutY="54.0" prefHeight="17.0" prefWidth="29.0" text="Day :" />
       <Label fx:id="day" layoutX="323.0" layoutY="54.0" text="CurrentDay" />
-      <BarChart fx:id="barSellIn" layoutX="299.0" layoutY="369.0" prefHeight="348.0" prefWidth="444.0">
+      <BarChart fx:id="barSellIn" layoutX="70.0" layoutY="505.0" prefHeight="230.0" prefWidth="267.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -34,13 +34,25 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <BarChart fx:id="barDate" layoutX="758.0" layoutY="369.0" prefHeight="348.0" prefWidth="444.0">
+      <BarChart fx:id="barDate" layoutX="337.0" layoutY="515.0" prefHeight="236.0" prefWidth="331.0">
          <xAxis>
-            <CategoryAxis side="BOTTOM" label = "Day of arrival"/>
+            <CategoryAxis label="Day of arrival" side="BOTTOM" />
          </xAxis>
          <yAxis>
-            <NumberAxis side="LEFT" label = "# of items" />
+            <NumberAxis label="# of items" side="LEFT" />
          </yAxis>
       </BarChart>
+      <Button layoutX="297.0" layoutY="177.0" mnemonicParsing="false" onAction="#SellSelection" prefHeight="25.0" prefWidth="156.0" text="Sell item" />
+      <ListView fx:id="listSup" layoutX="979.0" layoutY="82.0" prefHeight="319.0" prefWidth="246.0" />
+      <Label layoutX="1076.0" layoutY="54.0" text="Supplies" />
+      <Button layoutX="781.0" layoutY="89.0" mnemonicParsing="false" onAction="#BuySelection" text="Buy Current Item" />
+      <Label layoutX="777.0" layoutY="240.0" text="Item name" />
+      <Label layoutX="781.0" layoutY="260.0" text="SellIn" />
+      <Label layoutX="781.0" layoutY="281.0" text="Quality" />
+      <Label fx:id="itemNameSup" layoutX="857.0" layoutY="240.0" text="Item name here" />
+      <Label fx:id="sellInSup" layoutX="868.0" layoutY="261.0" text="0" />
+      <Label fx:id="qualitySup" layoutX="868.0" layoutY="283.0" text="0" />
+      <Button layoutX="979.0" layoutY="421.0" mnemonicParsing="false" onAction="#UpdateSelectionSup" prefHeight="25.0" prefWidth="246.0" text="Validate selection" />
+      <Button layoutX="779.0" layoutY="127.0" mnemonicParsing="false" onAction="#ChooseFileSup" prefHeight="25.0" prefWidth="156.0" text="New inventory (from json)" />
    </children>
 </AnchorPane>
